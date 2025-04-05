@@ -17,28 +17,35 @@
             // something that doesn't change much)
             var myCircle = ShapeFactory.CreateCircle(2.0);
             //myCircle.Radius = 2; doesn't work any more because myCircle is a Shape
-            Console.WriteLine(myCircle.Area());
+            PrintArea(myCircle);
             
             // Since ShapeFactory is static and a Singleton, I don't need to do:
             // x = new ShapeFactory(); y = x.CreateCircle(...)
             // because then there is no confusion if somewhere else I do y = new ShapeFactory()...
             
             Shape mySquare = ShapeFactory.CreateSquare(2.0);
-            Console.WriteLine(mySquare.Area());
+            PrintArea(mySquare);
 
             Shape myRectangle = ShapeFactory.CreateRectangle(2.0, 2.0);
-            Console.WriteLine(myRectangle.Area());
+            PrintArea(myRectangle);
 
             Shape myEquilateral = ShapeFactory.CreateEquilateral(3.0);
-            Console.WriteLine(myEquilateral.Area());
+            PrintArea(myEquilateral);
 
             Shape myIsosceles = ShapeFactory.CreateIsosceles(side:7.0,baseSide:8.0);
-            Console.WriteLine(myIsosceles.Area());
+            PrintArea(myIsosceles);
 
             Shape myScalene = ShapeFactory.CreateScalene(3.0,4.0,5.0);
-            Console.WriteLine(myScalene.Area());
+            PrintArea(myScalene);
 
             // Circle c = new Circle(1); dependencies are now hidden, so changes to them can't break your code
+        }
+        
+        
+        // Exploits Liskov Substitution Principle. Function expects a Shape, and made sure every child of Shape works.
+        public static void PrintArea(Shape shape)
+        {
+            Console.WriteLine(shape.Area());
         }
     }
 }

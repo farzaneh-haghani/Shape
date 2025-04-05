@@ -43,16 +43,20 @@ namespace Shape
             return new Scalene(sideA, sideB, sideC);
         }   
     }
+    // Single Responsibility and Closed for Modification (new shapes will be new Classes - Open for Extension)
     public abstract class Shape
-    {
+    {  
         // abstract means the derived class MUST provide an implementation
         public abstract double Area();
+        
+        // TODO add Perimeter
         
         // in any base class you can also delare the function  to have an
         // implementation. Overriding is optional.
         // public virtual string GetName() {....}
     }
 
+    // Single Responsibility
 // internal means that these classes are not visible outside of the class library
     internal class Circle : Shape
     {
@@ -71,6 +75,7 @@ namespace Shape
         }
     }
 
+    // Single Responsibility
 
     internal class Square : Shape
     {
@@ -86,6 +91,7 @@ namespace Shape
             return Math.Pow(_side,2);
         }
     }
+    // Single Responsibility
 
     internal class Rectangle : Shape
     {
@@ -111,6 +117,7 @@ namespace Shape
         protected double _sideC;
         //public override double Perimeter() {...}
     }
+    // Single Responsibility
 
     internal class Equilateral : Triangle
     {
@@ -126,6 +133,7 @@ namespace Shape
             return Math.Sqrt(3) / 4 * _sideA*_sideB;
         }
     }
+    // Single Responsibility
 
     internal class Isosceles : Triangle
     {
@@ -141,6 +149,7 @@ namespace Shape
             return _sideC * Math.Sqrt(_sideA*_sideA - _sideC*_sideC/4)/2;
         }
     }
+    // Single Responsibility
 
     internal class Scalene : Triangle
     {
