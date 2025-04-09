@@ -42,20 +42,96 @@ namespace Shape
         {
             return new Scalene(sideA, sideB, sideC);
         }   
+        
+        public static Shape CreatePolygon(double[] dx, double[] dy)
+        {
+            return new Polygon(dx, dy);
+        }
     }
     // Single Responsibility and Closed for Modification (new shapes will be new Classes - Open for Extension)
     public abstract class Shape
     {  
         // abstract means the derived class MUST provide an implementation
         public abstract double Area();
-        
-        // TODO add Perimeter
-        
-        // in any base class you can also delare the function  to have an
+        public abstract double Perimeter();  //function signiture that has no body, We can't use new from abstact.
+
+        // in any base class you can also declare the function  to have an
         // implementation. Overriding is optional.
         // public virtual string GetName() {....}
+        
+        //helper to calculate area of Triangle. It might be better to put in the Polygon class.
+        public static double TriangleArea(double a, double b, double c)
+        {
+            return double.NaN;
+        }
     }
 
+    // internal abstract class Derived : Shape
+    // {
+    //     protected abstract void Method();
+        // or
+        // protected virtual void Method();
+        // {
+        //     return;
+        // }
+    }
+
+    // internal class MoreDerived : Derived
+    // {
+    //     public override double Area()
+    //     {
+    //         throw new NotImplementedException();
+    //     }
+    //
+    //     protected override void Method()
+    //     {
+    //         return;
+    //     }
+        
+
+    //     public override double Perimeter()
+    //     {
+    //         throw new NotImplementedException();
+    //     }
+    // }
+    internal class Polygon:Shape
+    {
+        private double[] _dx;
+        private double[] _dy;
+
+        public Polygon(double[] dx, double[] dy)
+        {
+            _dx = dx;
+            _dy = dy;
+            // Array.Copy(dx,_dx,dx.Length);
+            // Array.Copy(dy,_dy,dy.Length);
+        }
+
+        public override double Area()
+        {
+           // Area (A) = | (x1y2 – y1x2) + (x2y3 – y2x3)…. + (xny1 – ynx1)/2 |
+            return 0.0;
+        }
+
+        public override double Perimeter()
+        {
+            double _premiter = 0.0;
+            for (int i = 0; i < _dx.Length; i++)
+            {
+                
+                // double diffX=Math.Abs(_dx[i] - _dx[i + 1]);
+                // double diffY = Math.Abs(_dy[i] - _dy[i + 1]);
+                // double side = Math.Sqrt(diffX * diffX + diffY * diffY);
+                _premiter += Math.Sqrt(_dx[i]*_dx[i]+_dy[i]*_dy[i]);
+            }
+            // double lastDiffX=Math.Abs(_dx[_dx.Length-1] - _dx[0]);
+            // double lastDiffY = Math.Abs(_dy[_dx.Length-1] - _dy[0]);
+            // double lastside = Math.Sqrt(lastDiffX * lastDiffX + lastDiffY * lastDiffY);
+            // _premiter += lastside;
+            return _premiter;
+        }
+    }
+    
     // Single Responsibility
 // internal means that these classes are not visible outside of the class library
     internal class Circle : Shape
@@ -71,7 +147,12 @@ namespace Shape
         // for the base Area() method
         public override double Area()
         {
-            return Math.PI * Math.Pow(this._radius ,2);
+            return Math.PI * _radius * _radius;
+        }
+
+        public override double Perimeter()
+        {
+            return 2 * Math.PI * _radius;
         }
     }
 
@@ -88,7 +169,12 @@ namespace Shape
 
         public override double Area()
         {
-            return Math.Pow(_side,2);
+            return _side * _side;
+        }
+
+        public override double Perimeter()
+        {
+            return 4 * _side;
         }
     }
     // Single Responsibility
@@ -108,6 +194,11 @@ namespace Shape
         {
             return _width * _height;
         }
+
+        public override double Perimeter()
+        {
+            return 2 * (_width + _height);
+        }
     }
 
     internal abstract class Triangle : Shape
@@ -115,7 +206,11 @@ namespace Shape
         protected double _sideA;
         protected double _sideB; 
         protected double _sideC;
-        //public override double Perimeter() {...}
+
+        public override double Perimeter()
+        {
+          return _sideA + _sideB + _sideC;
+        }
     }
     // Single Responsibility
 
@@ -159,16 +254,13 @@ namespace Shape
             _sideB = sideB;
             _sideC = sideC;
         }
-      
+        
         public override double Area()
         {
             double s = Perimeter();
             return Math.Sqrt(s * (s - _sideA) * (s - _sideB) * (s - _sideC));
         }
 
-        public double Perimeter()
-        {
-            return _sideA+_sideB+_sideC;
-        }
+
     }
 }
