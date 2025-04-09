@@ -1,6 +1,4 @@
-﻿using System.Formats.Asn1;
-
-namespace Shape
+﻿namespace ShapeInterfaceLibrary
 {
     // static means there are no instances of this class (you can't "new()" it)
     // There is only one of these objects in the whole program.
@@ -11,90 +9,63 @@ namespace Shape
         private static int _x = 1; // this is ok, and it means there is only one instance of ShapeFactory.x in the program
         
         // static for a method means that the "this" variable isn't here.
-        public static Shape CreateCircle(double radius)
+        public static IShape CreateCircle(double radius)
         {
             return new Circle(){Radius = radius};
         }
 
-        public static Shape CreateRectangle(double width, double height)
+        public static IShape CreateRectangle(double width, double height)
         {
             return new Rectangle(width, height);
         }
 
-        public static Shape CreateSquare(double side)
+        public static IShape CreateSquare(double side)
         {
             return new Square(side);
         }
 
-        public static Shape CreateEquilateral(double side)
+        public static IShape CreateEquilateral(double side)
         {
             return new Equilateral(side);
         }
         
       
-        public static Shape CreateIsosceles(double side, double baseSide)
+        public static IShape CreateIsosceles(double side, double baseSide)
         {
             return new Isosceles(side, baseSide);
         }
         
         
-        public static Shape CreateScalene(double sideA, double sideB, double sideC)
+        public static IShape CreateScalene(double sideA, double sideB, double sideC)
         {
             return new Scalene(sideA, sideB, sideC);
         }   
         
-        public static Shape CreatePolygon(double[] dx, double[] dy)
+        public static IShape CreatePolygon(double[] dx, double[] dy)
         {
             return new Polygon(dx, dy);
         }
     }
     // Single Responsibility and Closed for Modification (new shapes will be new Classes - Open for Extension)
-    public abstract class Shape
+    public interface IShape
     {  
         // abstract means the derived class MUST provide an implementation
-        public abstract double Area();
-        public abstract double Perimeter();  //function signiture that has no body, We can't use new from abstact.
+        double Area();
+        double Perimeter();  //function signiture that has no body, We can't use new from abstact.
 
         // in any base class you can also declare the function  to have an
         // implementation. Overriding is optional.
         // public virtual string GetName() {....}
         
         //helper to calculate area of Triangle. It might be better to put in the Polygon class.
-        public static double TriangleArea(double a, double b, double c)
-        {
-            return double.NaN;
-        }
-    // }
-
-    // internal abstract class Derived : Shape
-    // {
-    //     protected abstract void Method();
-        // or
-        // protected virtual void Method();
-        // {
-        //     return;
-        // }
+     
     }
 
-    // internal class MoreDerived : Derived
-    // {
-    //     public override double Area()
-    //     {
-    //         throw new NotImplementedException();
-    //     }
-    //
-    //     protected override void Method()
-    //     {
-    //         return;
-    //     }
-        
-
-    //     public override double Perimeter()
-    //     {
-    //         throw new NotImplementedException();
-    //     }
-    // }
-    internal class Polygon:Shape
+    public interface IShapeName
+    {
+        string ShapeName();
+    }
+    internal class Polygon:IShape
     {
         private double[] _dx;
         private double[] _dy;
@@ -107,13 +78,13 @@ namespace Shape
             // Array.Copy(dy,_dy,dy.Length);
         }
 
-        public override double Area()
+        public double Area()
         {
            // Area (A) = | (x1y2 – y1x2) + (x2y3 – y2x3)…. + (xny1 – ynx1)/2 |
             return 0.0;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             double _premiter = 0.0;
             for (int i = 0; i < _dx.Length; i++)
@@ -134,7 +105,7 @@ namespace Shape
     
     // Single Responsibility
 // internal means that these classes are not visible outside of the class library
-    internal class Circle : Shape
+    internal class Circle : IShape, IShapeName
     {
         private double _radius;
 
@@ -145,20 +116,22 @@ namespace Shape
 
         // override means that this function provides the implementation (body)
         // for the base Area() method
-        public override double Area()
+        public double Area()
         {
             return Math.PI * _radius * _radius;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return 2 * Math.PI * _radius;
         }
+
+        public string ShapeName() => "Circle";
     }
 
     // Single Responsibility
 
-    internal class Square : Shape
+    internal class Square : IShape, IShapeName
     {
         private double _side;
 
@@ -167,19 +140,21 @@ namespace Shape
             _side = side;
         }
 
-        public override double Area()
+        public double Area()
         {
             return _side * _side;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return 4 * _side;
         }
+
+        public string ShapeName() => "Square";
     }
     // Single Responsibility
 
-    internal class Rectangle : Shape
+    internal class Rectangle : IShape
     {
         private double _width;
         private double _height;
@@ -190,24 +165,27 @@ namespace Shape
             _height = height;
         }
 
-        public override double Area()
+        public double Area()
         {
             return _width * _height;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return 2 * (_width + _height);
         }
     }
 
-    internal abstract class Triangle : Shape
+    internal abstract class Triangle : IShape
     {
         protected double _sideA;
         protected double _sideB; 
         protected double _sideC;
 
-        public override double Perimeter()
+
+        public abstract double Area();
+
+        public double Perimeter()
         {
           return _sideA + _sideB + _sideC;
         }
@@ -263,5 +241,4 @@ namespace Shape
 
 
     }
-}
- 
+ }

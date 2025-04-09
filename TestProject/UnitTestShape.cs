@@ -1,14 +1,15 @@
 ﻿namespace Shape;
 
-public class UnitTest1
+public class UnitTestShape
 {
     [Fact]
     public void TestCircle()
     {
-        Shape mycircle = ShapeFactory.CreateCircle((double)2);
-        Assert.Equal(mycircle.Area(),4*Math.PI,0.00000001);
+        Shape myCircle= ShapeFactory.CreateCircle((double)2);
+        Assert.Equal(myCircle.Area(),4*Math.PI,0.00000001);
     }
-    
+    // e.g If developers in another company decided to change intyernal things, our code not depend of them and doesn't break(Changing later)
+    // Always dependencies get upgrade
     [Fact]
     public void TestSquare()
     {

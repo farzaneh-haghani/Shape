@@ -13,7 +13,8 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6673a5f0_002D003a_002D424d_002D87e0_002D6c2ad2578ae5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UnitTest1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::C8113202-BE25-447F-9740-069A14660F9A::net9.0::Shape.UnitTest1&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8113202-BE25-447F-9740-069A14660F9A::net9.0::ShapeInterfaceLibrary.UnitTestIShape&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8113202-BE25-447F-9740-069A14660F9A::net9.0::Shape.UnitTestShape&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b10938b5_002D296a_002D4644_002Dbdc3_002Daa2acf477234/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestPolygon" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
