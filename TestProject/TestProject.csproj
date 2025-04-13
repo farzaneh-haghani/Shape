@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ObjectLibrary\ObjectLibrary.csproj" />
       <ProjectReference Include="..\ShapeInterfaceLibrary\ShapeInterfaceLibrary.csproj" />
       <ProjectReference Include="..\ShapeLibrary\ShapeLibrary.csproj" />
     </ItemGroup>

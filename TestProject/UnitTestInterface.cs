@@ -1,6 +1,6 @@
 ﻿namespace ShapeInterfaceLibrary;
 
-public class UnitTestIShape
+public class UnitTestInterface
 {
     [Fact]
     public void TestCircle()
