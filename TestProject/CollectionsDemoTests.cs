@@ -15,7 +15,10 @@ public class CollectionsDemoTests
 {
     private readonly ITestOutputHelper _testOutputHelper;
     private readonly IList<Shape> _listOfShapes;
+    
+    private readonly IEnumerable<Shape> _deferredShapes;
 
+    
     public CollectionsDemoTests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
@@ -25,16 +28,39 @@ public class CollectionsDemoTests
         _listOfShapes = new List<Shape>();
         //var listOfShapes = new LinkedList<Shape>();
     
-        for (var i = 0; i<100; i++)
-        {
-            var size1 = rand.NextDouble() * 100;
-            _listOfShapes.Add(ObjectFactory.CreateCircle(size1));
-            var size2 = rand.NextDouble() * 100;
-            _listOfShapes.Add(ObjectFactory.CreateSquare(size2));
-            _listOfShapes.Add(ObjectFactory.CreateIsosceles(size1, size2));
-        }
+        // for (var i = 0; i<100; i++)
+        // {
+        //     var size1 = rand.NextDouble() * 100;
+        //     _listOfShapes.Add(ObjectFactory.CreateCircle(size1));
+        //     var size2 = rand.NextDouble() * 100;
+        //     _listOfShapes.Add(ObjectFactory.CreateSquare(size2));
+        //     _listOfShapes.Add(ObjectFactory.CreateIsosceles(size1, size2));
+        // }
+
+        // foreach (var shape in GetShapes())
+        // {
+        //     _listOfShapes.Add(shape);
+        // }
+        _deferredShapes = GetShapes();
+        // var shapeSource = GetShapes().GetEnumerator();
+        // var shape1 = shapeSource.Current;
+        // var shape2 = shapeSource.MoveNext() ? shapeSource.Current : null;
+        // var shape3 = shapeSource.MoveNext() ? shapeSource.Current : null;
     }
 
+    private IEnumerable<Shape> GetShapes() // public interface IEnumerable<out T>
+    {
+        var rand = new Random();
+        for (var i = 0; i < 100; i++)
+        {
+            var size1 = rand.NextDouble() * 100;
+            var size2 = rand.NextDouble() * 100;
+            yield return ObjectFactory.CreateCircle(size1);
+            yield return ObjectFactory.CreateSquare(size2);
+            yield return ObjectFactory.CreateIsosceles(size1, size2);
+        }
+    }
+    
     [Fact]
     public void DemoList()
     {
@@ -55,11 +81,11 @@ public class CollectionsDemoTests
     public void DemoFilter()
     {
         // bigShapes does NOT query immediately but it is deferred.
-        IEnumerable<Shape> bigShapes = _listOfShapes
+        IEnumerable<Shape> bigShapes = _deferredShapes
             .Where((shape) => shape.Area() > 15000);// like .filter()
-        IEnumerable<Shape> smallShapes = _listOfShapes
+        IEnumerable<Shape> smallShapes = _deferredShapes
             .Where((shape) => shape.Area() < 15000);// like .filter()
-// deferred execution(means not running inside unless we use the result) 
+// deferred execution(means not running anything unless we use the result) 
 
         bigShapes = bigShapes.Where((shape) => shape is Circle);
         bigShapes = bigShapes.Select((shape, index) => shape.MagnifyShape(2.0));

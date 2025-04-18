@@ -41,8 +41,32 @@ public static class ObjectFactory
     {
         return new Scalene(sideA, sideB, sideC);
     }
+
+    public static Shape CreatePolygon(double[] dx, double[] dy)
+    {
+        return new Polygon(dx, dy);
+    }
 }
 
+public static class HelpfulFunctions
+{
+    public static double LineLength(double dx, double dy)
+    {
+        if (Math.Abs(dx) == 0 && Math.Abs(dy) == 0)
+        {
+            throw new InvalidOperationException("Should have a length!");
+        }
+        return Math.Sqrt(dx * dx + dy * dy);
+    }
+
+    public static double TriangleArea(double a, double b, double c)
+    {
+        //check for negative values, etc
+        // check for impossible triangles, like a=100, b=1, c=1
+        var p = a + b + c;
+        return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+}
 public interface IVolume
 {
      double Volume();
@@ -224,7 +248,35 @@ internal class Scalene : Triangle
 
     public override double Area()
     {
-        var p = Perimeter();
-        return Math.Sqrt(p * (p - SideA) * (p - SideB) * (p - SideC));
+        //var p = Perimeter();
+        return HelpfulFunctions.TriangleArea(SideA, SideB, SideC);
+    }
+}
+internal class Polygon:Shape
+{
+    private double[] _dx;
+    private double[] _dy;
+
+    public Polygon(double[] dx, double[] dy)
+    {
+        _dx = dx;
+        _dy = dy;
+        // Array.Copy(dx,_dx,dx.Length);
+        // Array.Copy(dy,_dy,dy.Length);
+    }
+
+    public override double Area()
+    {
+        return 0.0;
+    }
+
+    public override double Perimeter()
+    {
+        double _premiter = 0.0;
+        for (int i = 0; i < _dx.Length; i++)
+        {
+            _premiter += Math.Sqrt(_dx[i]*_dx[i]+_dy[i]*_dy[i]);
+        }
+        return _premiter;
     }
 }

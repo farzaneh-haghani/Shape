@@ -107,7 +107,6 @@
 
         public override double Area()
         {
-           // Area (A) = | (x1y2 – y1x2) + (x2y3 – y2x3)…. + (xny1 – ynx1)/2 |
             return 0.0;
         }
 
@@ -116,16 +115,8 @@
             double _premiter = 0.0;
             for (int i = 0; i < _dx.Length; i++)
             {
-                
-                // double diffX=Math.Abs(_dx[i] - _dx[i + 1]);
-                // double diffY = Math.Abs(_dy[i] - _dy[i + 1]);
-                // double side = Math.Sqrt(diffX * diffX + diffY * diffY);
                 _premiter += Math.Sqrt(_dx[i]*_dx[i]+_dy[i]*_dy[i]);
             }
-            // double lastDiffX=Math.Abs(_dx[_dx.Length-1] - _dx[0]);
-            // double lastDiffY = Math.Abs(_dy[_dx.Length-1] - _dy[0]);
-            // double lastside = Math.Sqrt(lastDiffX * lastDiffX + lastDiffY * lastDiffY);
-            // _premiter += lastside;
             return _premiter;
         }
     }

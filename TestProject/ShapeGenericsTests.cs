@@ -96,6 +96,15 @@ public class ShapeGenericsTests
         //[]dx  List<int>
     }
 
+    public static class UsefulFunctions
+    {
+        public static double SurfaceAreaToVolumeRatio<TSolid>(TSolid solid) where TSolid : Solid
+        {
+            // Solid is the abstract parent of Sphere and Cube
+            // TSolid Type   e.g Sphere
+            return solid.Area() / solid.Volume();
+        }
+    }
     [Fact]
     public void HomeWork()
     {
@@ -105,8 +114,13 @@ public class ShapeGenericsTests
         var boundingBox = circle.BoundingBox(); // (return a new object)  return a Square that contains the Circle
         var boundedBox = circle.BoundedBox(); // (return a new object)  return a Square that fits inside the Circle
         // Generic
-        // write a class SurfaceAreaToVolumeRatio<Solid> { double Ratio() } // i.e. Area()/Volume()
+        // write a method SurfaceAreaToVolumeRatio<Solid> { double Ratio() } // i.e. Area()/Volume()
         // does have a Sphere have a smaller Surface area to volume ratio than a Cube. Why are bubbles spherical?
+
+        var sphere = ObjectFactory.CreateSphere(0.2);
+        var sratio = UsefulFunctions.SurfaceAreaToVolumeRatio(sphere);
+        var cube = ObjectFactory.CreateCube(0.2);
+        var cratio = UsefulFunctions.SurfaceAreaToVolumeRatio(cube);
     }
     public int Function(int x, int y)
     {
