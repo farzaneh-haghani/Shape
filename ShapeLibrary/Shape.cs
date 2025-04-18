@@ -1,4 +1,4 @@
-﻿namespace Shape
+﻿namespace ShapeLibrary
 {
     // static means there are no instances of this class (you can't "new()" it)
     // There is only one of these objects in the whole program.

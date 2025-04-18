@@ -1,4 +1,4 @@
-﻿namespace Shape
+﻿namespace ShapeLibrary
 {
     public static class Program
     {

@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices.JavaScript;
 using ObjectLibrary;
-using ObjectLibrary2;
 
 namespace TestProject1;
 
@@ -14,7 +12,7 @@ public class Sorter<T>  where T  : IComparable<T>
             // compare
             if (array[i].CompareTo(array[i + 1]) > 0)
             {
-                /// swa
+                // swap
             }
         }
         return null;
@@ -102,14 +100,10 @@ public class ShapeGenericsTests
     public void HomeWork()
     {
         var circle = ObjectFactory.CreateCircle(1.0);
-
         // These are extension methods on Circle
-        // var bigCircle = circle.Magnify(2.0); // (return a new object)  make it twice the size
-        // var boundingBox = circle.BoundingBox(); // (return a new object)  return a Square that contains the Circle
-        // var boundedBox = circle.BoundedBox(); // (return a new object)  return a Square that fits inside the Circle
-        
-        // Impossible Homework. Do the extension methods on Shape (TOTALLY OPTIONAL and maybe IMPOSSIBLE) But it makes you use your brain
-
+        var bigCircle = circle.MagnifyShape(2.0);
+        var boundingBox = circle.BoundingBox(); // (return a new object)  return a Square that contains the Circle
+        var boundedBox = circle.BoundedBox(); // (return a new object)  return a Square that fits inside the Circle
         // Generic
         // write a class SurfaceAreaToVolumeRatio<Solid> { double Ratio() } // i.e. Area()/Volume()
         // does have a Sphere have a smaller Surface area to volume ratio than a Cube. Why are bubbles spherical?
@@ -117,7 +111,5 @@ public class ShapeGenericsTests
     public int Function(int x, int y)
     {
         return x * y;
-        // 1 * 2
-        // 5 * 6
     }
 }

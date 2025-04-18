@@ -19,7 +19,7 @@ public static class ObjectFactory
 
     public static Shape CreateSquare(double side)
     {
-        return new Square(side);
+        return new Square(side); // new Square(area); take the sqrt of area
     }
 
     public static Shape CreateRectangle(double width,double height)
@@ -27,17 +27,17 @@ public static class ObjectFactory
         return new Rectangle(width, height);
     }
 
-    public static Shape Equilateral(double side)
+    public static Shape CreateEquilateral(double side)
     {
         return new Equilateral(side);
     }
 
-    public static Shape Isosceles(double sideA, double sideB)
+    public static Shape CreateIsosceles(double sideA, double sideB)
     {
         return new Isosceles(sideA, sideB);
     }
 
-    public static Shape Scalene(double sideA, double sideB, double sideC)
+    public static Shape CreateScalene(double sideA, double sideB, double sideC)
     {
         return new Scalene(sideA, sideB, sideC);
     }
@@ -110,50 +110,50 @@ internal class Cube : Solid
     }
 }
 
-public class Circle:Shape
+internal class Circle:Shape
 {
-    private readonly double _radius;
+    public readonly double Radius;
 
     public Circle(double radius)
     {
-        _radius = radius;
+        Radius = radius;
     }
 
     public override double Area()
     {
-        return Math.PI * _radius * _radius;
+        return Math.PI * Radius * Radius;
     }
 
     public override double Perimeter()
     {
-        return 2 * Math.PI * _radius;
+        return 2 * Math.PI * Radius;
     }
 }
 
-public class Square : Shape
+internal class Square : Shape
 {
-    private readonly double _side;
+    public readonly double Side;
 
     public Square(double side)
     {
-        _side = side;
+        Side = side;
     }
 
     public override double Area()
     {
-        return _side * _side;
+        return Side * Side;
     }
 
     public override double Perimeter()
     {
-        return 4 * _side;
+        return 4 * Side;
     }
 }
 
 public class Rectangle : Shape
 {
-    private readonly double _width;
-    private readonly double _height;
+    public readonly double _width;
+    public readonly double _height;
 
     public Rectangle(double width, double height)
     {
@@ -174,9 +174,9 @@ public class Rectangle : Shape
 
 internal abstract class Triangle:Shape
 {
-    protected double SideA;
-    protected double SideB;
-    protected double SideC;
+    public double SideA;
+    public double SideB;
+    public double SideC;
 
     public override double Perimeter()
     {
